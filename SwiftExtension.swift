@@ -126,6 +126,30 @@ extension UIButton {
         self.setBackgroundImage(backgroundImage, for: state)
     }
 }
+// 아웃바운드 검사
+extension Collection {
+    subscript (safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}
+
+extension Dictionary {
+    mutating func switchKey(fromKey: Key, toKey: Key) {
+        if let entry = removeValue(forKey: fromKey) {
+            self[toKey] = entry
+        }
+    }
+}
+
+extension UITextView {
+    func numberOfLine() -> Int {
+        
+        let size = CGSize(width: frame.width, height: .infinity)
+        let estimatedSize = sizeThatFits(size)
+        
+        return Int(estimatedSize.height / (self.font!.lineHeight))
+    }
+}
 
 //쿠키 제거
 //HTTPCookieStorage.shared.cookies?.forEach(HTTPCookieStorage.shared.deleteCookie)
